@@ -22,3 +22,5 @@ if len(sys.argv) == 3:
 Doc = DocumentManager(path)
 Doc.get_filenames()
 Doc.generate_dictionary()
+Doc.remove_stopwords()
+document_terms = Doc.get_terms()

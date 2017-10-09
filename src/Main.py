@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import sys
+from DocumentManager import DocumentManager
 
 path = "~/Gutenberg/txt"
 
@@ -17,4 +18,3 @@ if len(sys.argv) == 3:
     if sys.argv[1] == "-p":
         path = sys.argv[2]
         print "The path is:", path
-

@@ -102,3 +102,4 @@ ENV/
 
 # intelliJ stuff
 .idea/
+/assets

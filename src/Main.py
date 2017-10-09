@@ -3,7 +3,7 @@
 import sys
 from DocumentManager import DocumentManager
 
-path = "~/Gutenberg/txt"
+path = "../assets/Gutenberg/txt/"
 
 if len(sys.argv) == 1:
     print "Setting default path:", path
@@ -18,3 +18,7 @@ if len(sys.argv) == 3:
     if sys.argv[1] == "-p":
         path = sys.argv[2]
         print "The path is:", path
+
+Doc = DocumentManager(path)
+Doc.get_filenames()
+Doc.generate_dictionary()

@@ -1,8 +1,12 @@
 #!/usr/bin/python
 
 import sys
+
+import time
+
 from DocumentManager import DocumentManager
 
+initial_time = time.time()
 path = "../assets/Gutenberg/txt/"
 
 if len(sys.argv) == 1:
@@ -19,8 +23,10 @@ if len(sys.argv) == 3:
         path = sys.argv[2]
         print "The path is:", path, '\n'
 
-print "Starting serial clustering", '\n'
+print "Starting serial clustering...", '\n'
 
-Doc = DocumentManager(path)
-Doc.count_words()
-Doc.get_terms()
+document_manager = DocumentManager(path)
+document_manager.count_words()
+document_manager.vectorize_documents()
+
+print "Time taken:", time.time() - initial_time, "s"

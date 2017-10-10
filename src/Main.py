@@ -1,10 +1,9 @@
 #!/usr/bin/python
 
 import sys
-
 import time
-
 from DocumentManager import DocumentManager
+import Comparator
 
 initial_time = time.time()
 path = "../assets/Gutenberg/txt/"
@@ -28,5 +27,8 @@ print "Starting serial clustering...", '\n'
 document_manager = DocumentManager(path)
 document_manager.count_words()
 document_manager.vectorize_documents()
+documents = document_manager.get_documents()
+print "Euclidean distance beetween 0 and 1:", Comparator.calculate_euclidean_distance(documents[0], documents[1])
+print "Jaccard distance beetween 0 and 1:", Comparator.calculate_jaccard_distance(documents[0], documents[1])
 
 print "Time taken:", time.time() - initial_time, "s"

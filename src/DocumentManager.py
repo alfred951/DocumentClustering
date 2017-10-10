@@ -11,7 +11,6 @@ class DocumentManager:
         self.files.sort()
         self.terms = []
         self.documents = []
-        self.Vdocuments = []
         self.stopwords = ['a', 'able', 'about', 'across', 'after', 'all', 'almost', 'also', 'am', 'among',
                           'an', 'and', 'any', 'are', 'as', 'at', 'be', 'because', 'been', 'but', 'by', 'can',
                           'cannot', 'could', 'dear', 'did', 'do', 'does', 'either', 'else', 'ever', 'every',
@@ -30,6 +29,9 @@ class DocumentManager:
 
     def get_filenames(self):
         return self.files
+
+    def get_documents(self):
+        return self.documents
 
     def count_words(self):
         self.terms = set(self.terms)

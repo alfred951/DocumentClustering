@@ -7,9 +7,10 @@ from stemming.porter2 import stem
 class DocumentManager:
     def __init__(self, path):
         self.path = path
-        self.files = []
+        self.files = [f for f in listdir(self.path) if isfile(join(self.path, f))]
+        self.files.sort()
         self.terms = set()
-        self.wordcount = []
+        self.documents = []
         self.stopwords = ['a', 'able', 'about', 'across', 'after', 'all', 'almost', 'also', 'am', 'among',
                           'an', 'and', 'any', 'are', 'as', 'at', 'be', 'because', 'been', 'but', 'by', 'can',
                           'cannot', 'could', 'dear', 'did', 'do', 'does', 'either', 'else', 'ever', 'every',
@@ -26,38 +27,35 @@ class DocumentManager:
         return self.path
 
     def get_filenames(self):
-        self.files = [f for f in listdir(self.path) if isfile(join(self.path, f))]
-        self.files.sort()
         return self.files
 
     def count_words(self):
         for f in self.files:
-            file = open(self.path + f, "r+")
-            document_wordcount = {}
-            words = file.read().lower().split()
+            document = open(self.path + f, "r+")
+            wordcount = {}
+            words = document.read().lower().split()
             for i in range(len(words)):
                 regex = re.compile('[^a-z]')
                 words[i] = regex.sub('', words[i])
                 words[i] = stem(words[i])
             for word in words:
                 if word != '':
-                    if word not in document_wordcount:
-                        document_wordcount[word] = 1
+                    if word not in wordcount:
+                        wordcount[word] = 1
                     else:
-                        document_wordcount[word] += 1
+                        wordcount[word] += 1
             self.terms.update(words)
-            document_wordcount = self.remove_stopwords(document_wordcount)
-            self.wordcount.append(document_wordcount)
+            wordcount = self.remove_stopwords(wordcount)
+            self.documents.append(wordcount)
         self.terms = self.terms.difference(self.stopwords)
         self.terms.remove('')
 
-    def remove_stopwords(self, document_wordcount):
+    def remove_stopwords(self, wordcount):
         for key in self.stopwords:
-            document_wordcount.pop(key, None)
-        return document_wordcount
+            wordcount.pop(key, None)
+        return wordcount
 
     def get_terms(self):
-        print "Documents: ", len(self.wordcount)
-        print "Terms: ", len(self.terms)
+        print "Documents:", len(self.documents)
+        print "Terms:", len(self.terms)
         print self.terms
-

@@ -39,23 +39,17 @@ class DocumentManager:
                     document_wordcount[word] = 1
                 else:
                     document_wordcount[word] += 1
+            document_wordcount = self.remove_stopwords(document_wordcount)
             self.wordcount.append(document_wordcount)
-        print(self.wordcount)
-
-
-    def generate_dictionary(self):
-        for f in self.files:
-            file = open(self.path + f, "r+")
-            # file = open(self.path + self.files[0], "r+")
-            words = file.read().lower().split()
-
-    def remove_stopwords(self):
         self.terms = self.terms.difference(self.stopwords)
+
+    def remove_stopwords(self, document_wordcount):
         for key in self.stopwords:
-            self.wordcount.pop(key, None)
+            document_wordcount.pop(key, None)
+        return document_wordcount
 
     def get_terms(self):
-        print "Terms: ", len(self.wordcount.keys())
-        print "Terms + Count: ", len(self.terms)
-        return self.terms
+        print "Documents: ", len(self.wordcount)
+        print "Terms: ", len(self.terms)
+        print self.wordcount
 

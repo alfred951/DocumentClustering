@@ -1,5 +1,6 @@
 from os import listdir
 from os.path import join, isfile
+from stemming.porter2 import stem
 
 
 class DocumentManager:
@@ -35,7 +36,8 @@ class DocumentManager:
             words = file.read().lower().split()
             self.terms.update(words)
             for word in words:
-                if word not in document_wordcount:
+                term = stem(word)
+                if term not in document_wordcount:
                     document_wordcount[word] = 1
                 else:
                     document_wordcount[word] += 1

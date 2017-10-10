@@ -1,3 +1,4 @@
+import re
 from os import listdir
 from os.path import join, isfile
 from stemming.porter2 import stem
@@ -34,16 +35,21 @@ class DocumentManager:
             file = open(self.path + f, "r+")
             document_wordcount = {}
             words = file.read().lower().split()
-            self.terms.update(words)
+            for i in range(len(words)):
+                regex = re.compile('[^a-z]')
+                words[i] = regex.sub('', words[i])
+                words[i] = stem(words[i])
             for word in words:
-                term = stem(word)
-                if term not in document_wordcount:
-                    document_wordcount[word] = 1
-                else:
-                    document_wordcount[word] += 1
+                if word != '':
+                    if word not in document_wordcount:
+                        document_wordcount[word] = 1
+                    else:
+                        document_wordcount[word] += 1
+            self.terms.update(words)
             document_wordcount = self.remove_stopwords(document_wordcount)
             self.wordcount.append(document_wordcount)
         self.terms = self.terms.difference(self.stopwords)
+        self.terms.remove('')
 
     def remove_stopwords(self, document_wordcount):
         for key in self.stopwords:
@@ -53,5 +59,5 @@ class DocumentManager:
     def get_terms(self):
         print "Documents: ", len(self.wordcount)
         print "Terms: ", len(self.terms)
-        print self.wordcount
+        print self.terms
 

@@ -2,6 +2,7 @@ import re
 from os import listdir
 from os.path import join, isfile
 from stemming.porter2 import stem
+from Document import Document
 
 
 class DocumentManager:
@@ -51,7 +52,8 @@ class DocumentManager:
                         wordcount[word] += 1
             self.terms.update(words)
             wordcount = self.remove_stopwords(wordcount)
-            self.documents.append(wordcount)
+            doc = Document(f, wordcount)
+            self.documents.append(doc)
         self.terms = self.terms.difference(self.stopwords)
         self.terms.remove('')
         self.terms = list(self.terms)
@@ -63,14 +65,7 @@ class DocumentManager:
 
     def get_terms(self):
         return self.terms
-        # print "Documents:", len(self.documents)
-        # print "Terms:", len(self.terms)
-        # print self.terms
-        # print self.documents
 
     def vectorize_documents(self):
         for document in self.documents:
-            document_vector = [0] * len(self.terms)
-            for key, value in document.items():
-                document_vector[self.terms.index(key)] = value
-            self.documents[self.documents.index(document)] = document_vector
+            document.vectorize(self.terms)

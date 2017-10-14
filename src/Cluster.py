@@ -4,9 +4,7 @@ import Comparator
 
 
 def reevaluate_clusters(documents, centers):
-    print
-    print "Reevaluating clusters..."
-    clusters = [[]] * len(centers)
+    clusters = [[] for i in range(len(centers))]
     for document in documents:
         best_center_distance = 99999
         best_center_index = -1
@@ -17,13 +15,11 @@ def reevaluate_clusters(documents, centers):
                 best_center_distance = center_distance
                 best_center_index = i
             i = i+1
-        print "adding document", document.get_name(), "to cluster", best_center_index, "with distance", best_center_distance
         clusters[best_center_index].append(document)
     return clusters
 
 
 def reevaluate_centers(clusters):
-    print "Reevaluating centers..."
     new_centers = []
     for cluster in clusters:
         document_terms = list(map(lambda x: x.get_terms(), cluster))
@@ -56,7 +52,7 @@ def find_centers(documents, k):
 
     while not has_converged(centers, old_centers):
         old_centers = centers
-        print
+        print "Doing a k-mean iteration..."
         clusters = reevaluate_clusters(documents, centers)
         centers = reevaluate_centers(clusters)
     return centers, clusters

@@ -3,7 +3,6 @@
 import sys
 import time
 from DocumentManager import DocumentManager
-import Comparator
 import Cluster
 
 initial_time = time.time()
@@ -25,22 +24,34 @@ if len(sys.argv) == 3:
 
 print "Starting serial clustering...", '\n'
 
+print "Loading Documents..."
 document_manager = DocumentManager(path)
+
+print "\nTime taken:", time.time() - initial_time, "s"
+print "\nReducing documents..."
+
+initial_time = time.time()
 document_manager.count_words()
+
+print "\nTime taken:", time.time() - initial_time, "s"
+print "\nVectorizing documents..."
+
+initial_time = time.time()
 document_manager.vectorize_documents()
 documents = document_manager.get_documents()
-print documents
 
-print "Starting K-means Algorithm..."
+print "\nTime taken:", time.time() - initial_time, "s"
+print "\nStarting K-means Algorithm..."
 
+initial_time = time.time()
 centers, clusters = Cluster.find_centers(documents, 4)
+
+print "\nTime taken:", time.time() - initial_time, "s"
 
 i = 1
 for cluster in clusters:
-    print "Documents in cluster", i
+    print
+    print "Documents in cluster", i, '\n'
     for document in cluster:
         print document.get_name()
     i = i+1
-
-
-print "\nTime taken:", time.time() - initial_time, "s"

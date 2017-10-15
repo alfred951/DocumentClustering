@@ -1,6 +1,7 @@
 import random
 import numpy as np
 import Comparator
+import operator
 
 
 def reevaluate_clusters(documents, centers):
@@ -34,7 +35,15 @@ def has_converged(centers, old_centers):
     return set([tuple(a) for a in centers]) == set([tuple(a) for a in old_centers])
 
 
-def find_centers(documents, k):
+def get_center_terms(terms, centers):
+    center_terms = []
+    for center in centers:
+        index, value = max(enumerate(center), key=operator.itemgetter(1))
+        center_terms.append(terms[index])
+    return center_terms
+
+
+def find_centers(terms, documents, k):
     old_centers = random.sample(documents, k)
     centers = random.sample(documents, k)
 
@@ -55,6 +64,7 @@ def find_centers(documents, k):
         print "Doing a k-mean iteration..."
         clusters = reevaluate_clusters(documents, centers)
         centers = reevaluate_centers(clusters)
-    return centers, clusters
+    center_names = get_center_terms(terms, centers)
+    return centers, clusters, center_names
 
 

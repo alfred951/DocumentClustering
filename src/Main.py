@@ -39,19 +39,20 @@ print "\nVectorizing documents..."
 initial_time = time.time()
 document_manager.vectorize_documents()
 documents = document_manager.get_documents()
+terms = document_manager.get_terms()
 
 print "\nTime taken:", time.time() - initial_time, "s"
 print "\nStarting K-means Algorithm..."
 
 initial_time = time.time()
-centers, clusters = Cluster.find_centers(documents, 4)
+centers, clusters, cluster_names = Cluster.find_centers(terms, documents, 4)
 
 print "\nTime taken:", time.time() - initial_time, "s"
 
-i = 1
+i = 0
 for cluster in clusters:
     print
-    print "Documents in cluster", i, '\n'
+    print "Documents in cluster", cluster_names[i], '\n'
     for document in cluster:
         print document.get_name()
     i = i+1

@@ -27,3 +27,28 @@ basándonos en el ángulo entre dos vectores (Documentos) podemos saber que tan 
 en dirección el uno del otro. Generando así K clusters con documentos similares semántica y 
 sintácticamente comparando los elementos de los centroides entre si y los nuevos elementos con 
 todos los centroides para determinar cúal es el cluster que más se adecua a cada documento.
+
+# Implementación
+
+El proyecto fue implementado usando Python 2.7 en Pycharm. Como librerías externas fueron usadas
+mpi4py (http://mpi4py.scipy.org/docs/), stemming.porter2 (https://pypi.python.org/pypi/stemming/1.0)
+y NumPy (http://www.numpy.org/), la estructura del proyecto tanto en serial como en paralelo cuenta
+con los mismos archivos modulares que se encargan de completar cada uno de los pasos:
+ 
+  `` \
+     |- Cluster.py
+     |- Comparator.py
+     |- Document.py
+     |- DocumentManager.py
+     |- MainSerial.py o MainParallel.py
+  ``
+  
+* Cluster.py contiene el algoritmo de Clustering con cada paso especificado como un método.
+* Comparator.py contiene los algoritmos de similaridad (Jaccard Distance, Euclidean Distance y Cosine Distance)
+* Document.py contiene una clase llamada Documento para la representación de los documentos como estructura de datos
+* DocumentManager.py contiene la lógica de procesamiento de los documentos crudos y su representación en el programa
+* Main.py valida los argumentos e inicializa el algoritmo
+
+En el caso de la implementación paralela, tenemos un fichero extra para 
+correrlo en modo de depuración, llamado: MainParallelDebugger.py que puede ser ejecutado e imprimirá
+en pantalla todo un registro de los pasos.

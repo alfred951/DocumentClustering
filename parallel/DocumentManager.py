@@ -1,15 +1,12 @@
 import re
-from os import listdir
-from os.path import join, isfile
 from stemming.porter2 import stem
 from Document import Document
 
 
 class DocumentManager:
-    def __init__(self, path):
+    def __init__(self, path, files):
         self.path = path
-        self.files = [f for f in listdir(self.path) if isfile(join(self.path, f))]
-        self.files.sort()
+        self.files = files
         self.terms = []
         self.documents = []
         self.stopwords = ['a', 'able', 'about', 'across', 'after', 'all', 'almost', 'also', 'am', 'among',
@@ -65,6 +62,9 @@ class DocumentManager:
 
     def get_terms(self):
         return self.terms
+
+    def update_terms(self, new_terms):
+        self.terms = new_terms
 
     def vectorize_documents(self):
         for document in self.documents:

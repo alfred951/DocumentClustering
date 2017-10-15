@@ -68,3 +68,12 @@ def find_centers(terms, documents, k):
     return centers, clusters, center_names
 
 
+def pick_centers(documents, k):
+    centers = random.sample(documents, k)
+    new_centers = []
+    for center in centers:
+        center = center.get_terms()
+        new_centers.append(center)
+    centers = new_centers
+    return centers;
+

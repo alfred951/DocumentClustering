@@ -10,6 +10,7 @@ class DocumentManager:
         self.path = path
         self.files = [f for f in listdir(self.path) if isfile(join(self.path, f))]
         self.files.sort()
+        print "Found", len(self.files), "files"
         self.terms = []
         self.documents = []
         self.stopwords = ['a', 'able', 'about', 'across', 'after', 'all', 'almost', 'also', 'am', 'among',

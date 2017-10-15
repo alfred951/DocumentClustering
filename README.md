@@ -2,7 +2,7 @@
 
 Por: José Luis Álvarez Herrera y Luis Alfredo Gallego Montoya
 
-# 1. Descripción de la Aplicación
+# Descripción de la Aplicación
 
 Este proyecto es una implementación en Python 2.7 de la técnica Clustering
 de Machine Learning No Supervisado usando el algoritmo K-Means. Basado en
@@ -24,4 +24,6 @@ por prefijo que semánticamente nos dan un mismo contexto temático.
 
 Luego se procede a ejecutar el algoritmo K-Means con la función de similaridad del coseno,
 basándonos en el ángulo entre dos vectores (Documentos) podemos saber que tan similares son
-en dirección el uno del otro.
+en dirección el uno del otro. Generando así K clusters con documentos similares semántica y 
+sintácticamente comparando los elementos de los centroides entre si y los nuevos elementos con 
+todos los centroides para determinar cúal es el cluster que más se adecua a cada documento.

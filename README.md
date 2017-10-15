@@ -35,13 +35,13 @@ mpi4py (http://mpi4py.scipy.org/docs/), stemming.porter2 (https://pypi.python.or
 y NumPy (http://www.numpy.org/), la estructura del proyecto tanto en serial como en paralelo cuenta
 con los mismos archivos modulares que se encargan de completar cada uno de los pasos:
  
-  `` \
+  ``` \
      |- Cluster.py
      |- Comparator.py
      |- Document.py
      |- DocumentManager.py
      |- MainSerial.py o MainParallel.py
-  ``
+  ```
   
 * Cluster.py contiene el algoritmo de Clustering con cada paso especificado como un método.
 * Comparator.py contiene los algoritmos de similaridad (Jaccard Distance, Euclidean Distance y Cosine Distance)

@@ -52,3 +52,29 @@ con los mismos archivos modulares que se encargan de completar cada uno de los p
 En el caso de la implementación paralela, tenemos un fichero extra para 
 correrlo en modo de depuración, llamado: MainParallelDebugger.py que puede ser ejecutado e imprimirá
 en pantalla todo un registro de los pasos.
+
+# Ejecucion
+
+Para el funcionamiento del algoritmo es necesario proveerle la direccion al dataset, ya sea con el comando "-p" o agregandolo a la carpeta fuente de forma que el path sea el siguiente: "DocumentClustering/Assets/Gutenberg/txt"
+
+Para ejecutar el algoritmo serial por linea de comandos:
+  ```
+Mostrar ayuda:
+    ~ python MainSerial.py -h
+     
+Ejecutar con ruta predeterminado:
+    ~ python MainSerial.py
+     
+Ejecutar con ruta propia
+    ~ python MainSerial.py -p [path]
+  ```
+  
+  Para el algoritmo paralelo:
+  ``` 
+Con el script de ejecucion:
+   ~ ./executor.sh
+   
+Con el interprete de python:
+   ~ mpiexec -np [numero_de_cores] python ./MainParallel.py
+  ```
+  De igual forma el programa en paralelo tiene los parametros "-h" y "-p [path]"
